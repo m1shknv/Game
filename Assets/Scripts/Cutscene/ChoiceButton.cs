@@ -4,14 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ChoiceButton : MonoBehaviour
 {
-    [Header("Effects on Stats")]
-    [SerializeField] private int moneyDelta = 0;
-    [SerializeField] private float influenceDelta = 0f;
-    [SerializeField] private float reputationDelta = 0f;
-    [SerializeField] private float relationshipDelta = 0f;
-    [SerializeField] private float suspicionDelta = 0f;
-
-    [Header("References")]
+    [SerializeField] private EffectData effect;
     [SerializeField] private CutsceneManager cutsceneManager;
 
     private void Awake()
@@ -21,7 +14,13 @@ public class ChoiceButton : MonoBehaviour
 
     private void OnChoiceSelected()
     {
-        StatsManager.Instance.ChangeStats(moneyDelta, influenceDelta, reputationDelta, relationshipDelta, suspicionDelta);
+        StatsManager.Instance.ChangeStats(
+            effect.moneyDelta,
+            effect.influenceDelta,
+            effect.reputationDelta,
+            effect.relationshipDelta,
+            effect.suspicionDelta
+        );
 
         cutsceneManager.CloseCutscene();
     }

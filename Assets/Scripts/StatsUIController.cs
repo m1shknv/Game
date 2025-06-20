@@ -1,17 +1,27 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StatsUIController : MonoBehaviour
 {
-    [Header("UI Elements")]
-    [SerializeField] private Text moneyText;
-    [SerializeField] private Image influenceFillImage;
-    [SerializeField] private Image reputationFillImage;
-    [SerializeField] private Image relationshipFillImage;
-    [SerializeField] private Image suspicionFillImage;
+    [SerializeField] private Text _moneyText;
+    [SerializeField] private Image _influenceFillImage;
+    [SerializeField] private Image _reputationFillImage;
+    [SerializeField] private Image _relationshipFillImage;
+    [SerializeField] private Image _suspicionFillImage;
 
-    private void OnEnable()
+    private void Start()
     {
+        StartCoroutine(WaitForStatsManager());
+    }
+
+    private IEnumerator WaitForStatsManager()
+    {
+        while (StatsManager.Instance == null)
+        {
+            yield return null;
+        }
+
         StatsManager.Instance.OnStatsChanged += UpdateUI;
         UpdateUI();
     }
@@ -24,10 +34,11 @@ public class StatsUIController : MonoBehaviour
 
     private void UpdateUI()
     {
-        moneyText.text = StatsManager.Instance.Money.ToString();
-        influenceFillImage.fillAmount = StatsManager.Instance.Influence;
-        reputationFillImage.fillAmount = StatsManager.Instance.Reputation;
-        relationshipFillImage.fillAmount = StatsManager.Instance.Relationship;
-        suspicionFillImage.fillAmount = StatsManager.Instance.Suspicion;
+        _moneyText.text = StatsManager.Instance.Money.ToString();
+
+        _influenceFillImage.fillAmount = StatsManager.Instance.Influence;
+        _reputationFillImage.fillAmount = StatsManager.Instance.Reputation;
+        _relationshipFillImage.fillAmount = StatsManager.Instance.Relationship;
+        _suspicionFillImage.fillAmount = StatsManager.Instance.Suspicion;
     }
 }

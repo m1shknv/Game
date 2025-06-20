@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class StatsManager : MonoBehaviour
@@ -15,7 +15,7 @@ public class StatsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance && Instance)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -34,6 +34,6 @@ public class StatsManager : MonoBehaviour
 
         OnStatsChanged?.Invoke();
 
-        Debug.Log($"Stats updated: Money={Money}, Influence={Influence}, Reputation={Reputation}, Relationship={Relationship}, Suspicion={Suspicion}");
+        Debug.Log($"[StatsManager] Stats updated: $$$ {Money}, Influence {Influence}, Reputation {Reputation}, Relationship {Relationship}, Suspicion {Suspicion}");
     }
 }

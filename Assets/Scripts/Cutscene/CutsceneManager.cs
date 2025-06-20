@@ -4,13 +4,15 @@ public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private GameObject cutscenePanel;
 
-    public void CloseCutscene()
+    public void OpenCutscene()
     {
-        cutscenePanel.SetActive(false);
+        if (cutscenePanel)
+            cutscenePanel.SetActive(true);
     }
 
-    public void ShowCutscene()
+    public void CloseCutscene()
     {
-        cutscenePanel.SetActive(true);
+        if (cutscenePanel)
+            cutscenePanel.SetActive(false);
     }
 }
